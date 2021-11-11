@@ -3,53 +3,55 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter.filedialog import askopenfile 
 
-def openFile():
+def openFile1():
     tf = askopenfile(
-        initialdir="C:/Users/Saranya Prasertsang/Desktop/Saranya/SE/AI/Project AI/Plagiarism-Analyzer", 
+        initialdir="C:/Users/Saranya Prasertsang/Desktop/", 
         title="Open Text file", 
         filetypes=(("Text Files", "*.txt"),)
         )
-    pathh.insert(END, tf)
-    tf = open(tf)  # or tf = open(tf, 'r')
+    pathh1.insert(END, tf)
+    tf = open(tf,'r')
     data = tf.read()
-    txtarea.insert(END, data)
+    txtarea1.insert(END, data)
+    tf.close()
+def openFile2():
+    tf = askopenfile(
+        initialdir="C:/Users/Saranya Prasertsang/Desktop/", 
+        title="Open Text file", 
+        filetypes=(("Text Files", "*.txt"),)
+        )
+    pathh2.insert(END, tf)
+    tf = open(tf,'r')
+    data = tf.read()
+    txtarea2.insert(END, data)
     tf.close()
 def checkPlagiarism():
     pass
 
 ws = Tk()
 ws.title("Plagiarism Analyzer")
+ws.resizable(False,False)
 
 ws['bg']='#C63785'
 
-txtarea = Text(ws, width=40, height=20)
-txtarea.pack(pady=20)
+txtarea1 = Text(ws, width=20, height=20)
+txtarea1.pack()
 
-pathh = Entry(ws)
-pathh.pack(side=LEFT, expand=True, fill=X, padx=20)
+pathh1 = Entry(ws)
+pathh1.pack()
 
+loadfilebtn1 = Button(ws, text="Open File 1", command=openFile1).pack()
 
-Button(
-    ws, 
-    text="Open File 1", 
-    command=openFile
-    ).pack(side=RIGHT, expand=True, fill=X, padx=20)
-
-txtarea2 = Text(ws, width=40, height=20)
-txtarea2.pack(pady=20)
+txtarea2 = Text(ws, width=20, height=20)
+txtarea2.pack()
 
 pathh2 = Entry(ws)
-pathh2.pack(side=LEFT, expand=True, fill=X, padx=20)
+pathh2.pack()
 
-Button(
-    ws, 
-    text="Open File 2", 
-    command=openFile
-    ).pack(side=RIGHT, expand=True, fill=X, padx=20)
+loadfilebtn2 = Button(ws, text="Open File 2", command=openFile2).pack()
 
-Button(
-    ws, 
-    text="Compare", 
-    command=checkPlagiarism
-    ).pack(side=RIGHT, expand=True, fill=X, padx=20)
+plagiarismCheckbtn = Button(ws, text="Check", command=checkPlagiarism).pack()
+showresult = Text(ws, width=20, height=20)
+showresult.pack()
 ws.mainloop()
+
