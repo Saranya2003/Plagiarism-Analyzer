@@ -1,7 +1,14 @@
+import os
 #from pyswip import Prolog
 from tkinter import *
 from tkinter.ttk import *
-from tkinter.filedialog import askopenfile 
+from tkinter.filedialog import askopenfile
+
+original=[doc for doc in os.listdir() if doc.endswith('.txt')]
+sample=[open(_file,encoding='utf-8').read() for _file in original]
+
+#vector=vectorize()
+s_vector=list(zip)
 
 def openFile1():
     tf = askopenfile(
@@ -26,7 +33,8 @@ def openFile2():
     txtarea2.insert(END, data)
     tf.close()
 def checkPlagiarism():
-    pass
+    result= set()
+    global s_vectors
 
 ws = Tk()
 ws.title("Plagiarism Analyzer")
