@@ -31,8 +31,7 @@ def openFile2():
     tf.close()
 
 def checkPlagiarism():
-    result= set()
-    global s_vectors
+    pass
 
 ws = Tk()
 ws.title("Plagiarism Analyzer")
