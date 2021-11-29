@@ -4,8 +4,18 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
+from numpy import vectorize
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
+files=[doc for doc in os.listdir() if doc.endswith('.txt')]
 
+vectorize = lambda Text: TfidfVectorizer().fit_transform(Text).toarray()
+
+similarity = lambda doc1, doc2: cosine_similarity([doc1,doc2])
+
+vectors = vectorize(files)
+s_vectors = list(zip(files,vectors))
 
 def openFile1():
     tf = filedialog.askopenfilename(
