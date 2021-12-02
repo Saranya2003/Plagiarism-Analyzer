@@ -8,13 +8,13 @@ from numpy import vectorize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-files=[doc for doc in os.listdir() if doc.endswith('.txt')]
-
+files = [doc for doc in os.listdir() if doc.endswith('.txt')]
+contents = [open(File).read() for File in files]
 vectorize = lambda Text: TfidfVectorizer().fit_transform(Text).toarray()
 
 similarity = lambda doc1, doc2: cosine_similarity([doc1,doc2])
 
-vectors = vectorize(files)
+vectors = vectorize(contents)
 s_vectors = list(zip(files,vectors))
 
 def openFile1():
@@ -42,7 +42,17 @@ def openFile2():
     tf.close()
 
 def checkPlagiarism():
-    pass
+    results = set()
+    global s_vectors
+    for file_a, text_a in s_vectors:
+        new_vectors = s_vectors.copy()
+        current_index = new_vectors.index((file_a,text_a))
+        del new_vectors[current_index]
+        for file_b, text_b in new_vectors:
+            sim_score = similarity(text_a,text_b)[0][1]
+            score = file_a[0], file_b[1], sim_score
+            results.add(score)
+        return results
 
 ws = Tk()
 ws.title("Plagiarism Analyzer")
