@@ -82,5 +82,6 @@ loadfilebtn2 = Button(ws, text="Open File 2", command=openFile2).pack()
 plagiarismCheckbtn = Button(ws, text="Check", command=checkPlagiarism).pack()
 showresult = Text(ws,width=10, height=5)
 showresult.pack()
+showresult.insert()
 ws.mainloop()
 
