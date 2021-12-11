@@ -54,6 +54,24 @@ def checkPlagiarism():
     #result = "%.2f"%(result)
     #plag_result = "Plagiarism Score : "+str(result)
     #showresult.config(text=plag_result)
+    #print(list(prolog.query('("'+doc1+'" = "'+doc2+'", X=1); ("'+doc1+'" \= "'+doc2+'", X=2).')))
+    result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
+    result = result[0]
+    finalres = result['Res']
+    
+    if finalres == 2:
+        showresult.config(text="Not plagiarism")
+    else:
+        showresult.config(text="plagiarism")
+
+
+
+
+    ####
+    #result = list(prolog.query("isub('"+doc1+"', '"+doc2+"', D, [normalize(true),zero_to_one(true)])."))
+    #print(result[0]["D"]) #Use internal Prolog function
+    #showresult.config(text=result)
+    ####
 
 #GUI for the program
 ws = Tk()
