@@ -49,10 +49,11 @@ def openFile2():
 def checkPlagiarism():
     doc1=txtarea1.get("1.0",END)
     doc2=txtarea2.get("1.0",END)
-    result = SequenceMatcher(None,doc1,doc2).ratio()
-    result = "%.2f"%(result)
-    plag_result = "Plagiarism Score : "+str(result)
-    showresult.config(text=plag_result)
+    print(list(prolog.query('plagiarismCheck("'+doc1+'"="'+doc2+'", Res).')))
+    #result = SequenceMatcher(None,doc1,doc2).ratio()
+    #result = "%.2f"%(result)
+    #plag_result = "Plagiarism Score : "+str(result)
+    #showresult.config(text=plag_result)
 
 #GUI for the program
 ws = Tk()

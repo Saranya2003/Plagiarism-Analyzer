@@ -12,5 +12,9 @@ read_file(Stream,[X|L]) :-
     read(Stream,X),
     read_file(Stream,L).
 
-plagiarismCheck :-
+plagiarismCheck(A,B,Res) :-
+    (A = B, Res=1); (A \= B, Res=2).
+    %%(A = B, write("Yes")); (A \= B, write("No")).
+    %%(A = B, X); (A \= B, X).
+    %%isub(A, B, D, [normalize(true),zero_to_one(true)]). %%use the function that currently have
 
