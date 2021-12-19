@@ -47,15 +47,33 @@ def openFile2():
 
 #Check plagiarism function
 def checkPlagiarism():
+    cout = 0
     doc1=txtarea1.get("1.0",END)
     doc2=txtarea2.get("1.0",END)
-    print(list(prolog.query('plagiarismCheck("'+doc1+'"="'+doc2+'", Res).')))
+    arr1 = doc1.strip().split(" ")
+    arr2 = doc2.strip().split(" ")
+    print(len(arr1))
+    '''
+    for x in (len(arr1)):
+        cout = cout + 1
+        print(cout)
+        for y in len(arr2):
+            result = list(prolog.query('plagiarismCheck("'+arr1[x]+'","'+arr2[y]+'",Res).'))
+            result = result[0]
+            finalres = result['Res']
+            if finalres == 2:
+                showresult.config(text="Not plagiarism")
+            else:
+                showresult.config(text="plagiarism")
+    '''
+    #print(list(prolog.query('plagiarismCheck("'+doc1+'"="'+doc2+'", Res).')))
     #result = SequenceMatcher(None,doc1,doc2).ratio()
     #result = "%.2f"%(result)
     #plag_result = "Plagiarism Score : "+str(result)
     #showresult.config(text=plag_result)
     #print(list(prolog.query('("'+doc1+'" = "'+doc2+'", X=1); ("'+doc1+'" \= "'+doc2+'", X=2).')))
     result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
+    print(result)
     result = result[0]
     finalres = result['Res']
     
