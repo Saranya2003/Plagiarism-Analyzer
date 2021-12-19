@@ -45,7 +45,7 @@ def openFile2():
         txtarea2.insert(END,data)
     return data
 
-#Check plagiarism
+#Check plagiarism function
 def checkPlagiarism():
     doc1=txtarea1.get("1.0",END)
     doc2=txtarea2.get("1.0",END)
