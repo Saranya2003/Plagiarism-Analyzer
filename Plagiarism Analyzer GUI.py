@@ -5,8 +5,7 @@ from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
 import math
-from difflib import SequenceMatcher
-
+import re
 
 
 
@@ -50,23 +49,36 @@ def openFile2():
 def checkPlagiarism():
     cout = 0.0
     val = 0.0
+    i = 0
+    j = 0
+    arr1_slp = []
+    arr2_slp = []
     doc1=txtarea1.get("1.0",END)
     doc2=txtarea2.get("1.0",END)
-    arr1 = doc1.strip().split("\n")
-    arr2 = doc2.strip().split("\n")
-    print(len(arr1))
-    print(arr1)
-    print(len(arr2))
-    print(arr2)
+    delimiters = "\n",".\s",".",".\n",",\s",","
+    regexPattern = '|'.join(map(re.escape, delimiters))
+    arr1 = re.split(regexPattern,doc1)
+    arr2 = re.split(regexPattern,doc2)
+    arr1_l = len(arr1)
+    arr2_l = len(arr2)
+    for i in range(arr1_l):
+        xa = arr1[i]
+        if xa != '':
+            arr1_slp.append(arr1[i])
+    print(arr1_slp)
+    for i in range(arr2_l):
+        xa = arr2[i]
+        if xa != '':
+            arr2_slp.append(arr2[i])
+    print(arr2_slp)
     result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
-    #print(result)
     result = result[0]
     finalres = result['Res']
     if finalres == 2:
-        for x in range((len(arr1))):
-            for y in range(len(arr2)):
+        for x in range((len(arr1_slp))):
+            for y in range(len(arr2_slp)):
                 cout += 1.0
-                result = list(prolog.query('plagiarismCheck("'+arr1[x]+'","'+arr2[y]+'",Res).'))
+                result = list(prolog.query('plagiarismCheck("'+arr1_slp[x]+'","'+arr2_slp[y]+'",Res).'))
                 result = result[0]
                 finalres = result['Res']
                 if finalres == 2:
@@ -86,31 +98,6 @@ def checkPlagiarism():
     
     print(val)
     print(cout)
-    #print(list(prolog.query('plagiarismCheck("'+doc1+'"="'+doc2+'", Res).')))
-    #result = SequenceMatcher(None,doc1,doc2).ratio()
-    #result = "%.2f"%(result)
-    #plag_result = "Plagiarism Score : "+str(result)
-    #print(plag_result)
-    #showresult.config(text=plag_result)
-    # print(list(prolog.query('("'+doc1+'" = "'+doc2+'", X=1); ("'+doc1+'" \= "'+doc2+'", X=2).')))
-    #result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
-    #print(result)
-    #result = result[0]
-    #finalres = result['Res']
-    
-    #if finalres == 2:
-        #showresult.config(text="Not plagiarism")
-    #else:
-        #showresult.config(text="plagiarism")
-
-
-
-
-    ####
-    #result = list(prolog.query("isub('"+doc1+"', '"+doc2+"', D, [normalize(true),zero_to_one(true)])."))
-    #print(result[0]["D"]) #Use internal Prolog function
-    #showresult.config(text=result)
-    ####
 
 #GUI for the program
 ws = Tk()
