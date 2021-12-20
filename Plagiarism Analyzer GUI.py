@@ -137,4 +137,3 @@ plagiarismCheckbtn = Button(ws, text="Check", command=checkPlagiarism).pack()
 
 
 ws.mainloop()
-
