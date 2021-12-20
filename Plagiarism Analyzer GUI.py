@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
+import math
 import re
 
 
@@ -71,13 +72,33 @@ def checkPlagiarism():
             arr2_slp.append(arr2[i])
     print(arr2_slp)
     #check and calculate % of plagiarism
-
-    #Use isub to check similarity
-    result = list(prolog.query("isub('"+doc1+"', '"+doc2+"', D, [normalize(true),zero_to_one(true)]).")) #Use internal Prolog function
-    print(result[0]["D"])
-    res = result[0]["D"]
-    res = res*100
-    showresult.config(text="{:.2f}".format(res) + " % plagiarism")
+    result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
+    result = result[0]
+    finalres = result['Res']
+    if finalres == 2:
+        for x in range((len(arr1_slp))):
+            for y in range(len(arr2_slp)):
+                cout += 1.0
+                result = list(prolog.query('plagiarismCheck("'+arr1_slp[x]+'","'+arr2_slp[y]+'",Res).'))
+                result = result[0]
+                finalres = result['Res']
+                if finalres == 2:
+                    print("0")
+                    finalres = 0.0
+                    #showresult.config(text="Not plagiarism")
+                    val += finalres
+                else:
+                    print("1")
+                    finalres = 1.0
+                    #showresult.config(text="plagiarism")
+                    val += finalres
+        res = (val * 100)/ math.sqrt(cout)
+        showresult.config(text="{:.2f}".format(res) + " % plagiarism")
+    else:
+        showresult.config(text="100% plagiarism")
+    
+    print(val)
+    print(cout)
 
 #GUI for the program
 ws = Tk()
