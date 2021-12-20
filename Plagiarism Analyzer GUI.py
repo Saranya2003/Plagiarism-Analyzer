@@ -55,6 +55,7 @@ def checkPlagiarism():
     arr2_slp = []
     doc1=txtarea1.get("1.0",END)
     doc2=txtarea2.get("1.0",END)
+    #read text and cutout \n . and ,
     delimiters = "\n",".\s",".",".\n",",\s",","
     regexPattern = '|'.join(map(re.escape, delimiters))
     arr1 = re.split(regexPattern,doc1)
@@ -71,6 +72,7 @@ def checkPlagiarism():
         if xa != '':
             arr2_slp.append(arr2[i])
     print(arr2_slp)
+    #check and calculate % of plagiarism
     result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
     result = result[0]
     finalres = result['Res']
