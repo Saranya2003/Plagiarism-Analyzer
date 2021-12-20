@@ -102,11 +102,11 @@ def checkPlagiarism():
 #GUI for the program
 ws = Tk()
 ws.title("Plagiarism Analyzer")
-ws.geometry("800x600")
+ws.geometry("400x600")
 
 ws['bg']='#C63785'
 
-title=Label(text="Please open a file to check plagiarism.", font=('Arial', 25))
+title=Label(text="Please open a file to check plagiarism.",font=('Arial', 16))
 title.pack()
 
 #text display 1
@@ -137,3 +137,4 @@ plagiarismCheckbtn = Button(ws, text="Check", command=checkPlagiarism).pack()
 
 
 ws.mainloop()
+
