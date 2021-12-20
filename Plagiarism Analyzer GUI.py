@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
+import math
 from difflib import SequenceMatcher
 
 
@@ -47,40 +48,60 @@ def openFile2():
 
 #Check plagiarism function
 def checkPlagiarism():
-    cout = 0
+    cout = 0.0
+    val = 0.0
     doc1=txtarea1.get("1.0",END)
     doc2=txtarea2.get("1.0",END)
-    arr1 = doc1.strip().split(" ")
-    arr2 = doc2.strip().split(" ")
+    arr1 = doc1.strip().split("\n")
+    arr2 = doc2.strip().split("\n")
     print(len(arr1))
-    '''
-    for x in (len(arr1)):
-        cout = cout + 1
-        print(cout)
-        for y in len(arr2):
-            result = list(prolog.query('plagiarismCheck("'+arr1[x]+'","'+arr2[y]+'",Res).'))
-            result = result[0]
-            finalres = result['Res']
-            if finalres == 2:
-                showresult.config(text="Not plagiarism")
-            else:
-                showresult.config(text="plagiarism")
-    '''
+    print(arr1)
+    print(len(arr2))
+    print(arr2)
+    result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
+    #print(result)
+    result = result[0]
+    finalres = result['Res']
+    if finalres == 2:
+        for x in range((len(arr1))):
+            for y in range(len(arr2)):
+                cout += 1.0
+                result = list(prolog.query('plagiarismCheck("'+arr1[x]+'","'+arr2[y]+'",Res).'))
+                result = result[0]
+                finalres = result['Res']
+                if finalres == 2:
+                    print("0")
+                    finalres = 0.0
+                    #showresult.config(text="Not plagiarism")
+                    val += finalres
+                else:
+                    print("1")
+                    finalres = 1.0
+                    #showresult.config(text="plagiarism")
+                    val += finalres
+        res = (val * 100)/ math.sqrt(cout)
+        showresult.config(text="{:.2f}".format(res) + " % plagiarism")
+    else:
+        showresult.config(text="100% plagiarism")
+    
+    print(val)
+    print(cout)
     #print(list(prolog.query('plagiarismCheck("'+doc1+'"="'+doc2+'", Res).')))
     #result = SequenceMatcher(None,doc1,doc2).ratio()
     #result = "%.2f"%(result)
     #plag_result = "Plagiarism Score : "+str(result)
+    #print(plag_result)
     #showresult.config(text=plag_result)
-    #print(list(prolog.query('("'+doc1+'" = "'+doc2+'", X=1); ("'+doc1+'" \= "'+doc2+'", X=2).')))
-    result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
-    print(result)
-    result = result[0]
-    finalres = result['Res']
+    # print(list(prolog.query('("'+doc1+'" = "'+doc2+'", X=1); ("'+doc1+'" \= "'+doc2+'", X=2).')))
+    #result = list(prolog.query('plagiarismCheck("'+doc1+'","'+doc2+'",Res).'))
+    #print(result)
+    #result = result[0]
+    #finalres = result['Res']
     
-    if finalres == 2:
-        showresult.config(text="Not plagiarism")
-    else:
-        showresult.config(text="plagiarism")
+    #if finalres == 2:
+        #showresult.config(text="Not plagiarism")
+    #else:
+        #showresult.config(text="plagiarism")
 
 
 
