@@ -1,4 +1,3 @@
-import os
 from pyswip import Prolog
 from tkinter import *
 from tkinter.ttk import *
@@ -108,7 +107,7 @@ ws.geometry("400x600")
 
 ws['bg']='#C63785'
 
-title=Label(text="Please open a file to check plagiarism.")
+title=Label(text="Please open a file to check plagiarism.",font=('Arial', 16))
 title.pack()
 
 #text display 1
@@ -139,4 +138,3 @@ plagiarismCheckbtn = Button(ws, text="Check", command=checkPlagiarism).pack()
 
 
 ws.mainloop()
-
