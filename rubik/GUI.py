@@ -9,6 +9,8 @@ class SolverGUI(Frame):
 
     def __init__(self, parent):
         Frame.__init__(self, parent)
+        label = Label(text="Rubik's Cube Solver",background='#FF9CD1',font=("Arial", 25))
+        label.pack()
         # Create Canvas, store canvas items
         self.canvas = Canvas(parent, width=800, height=650)
         self.canvas.pack(expand=YES, fill=BOTH)
@@ -30,10 +32,12 @@ class SolverGUI(Frame):
         self.msecs = 1000
         self.current_time_display = self.canvas.create_text(790, 640, anchor=SE, font='courier', text=self.current_time)
         self._job = None
+        self.solverBtn = Button(text="Solve",height = 1,width = 5,background='#FCDA5D',font=("Arial", 25))
+        self.solverBtn.pack()
 
     def draw_cube(self, x_origin, y_origin, side_width, space_width):
-        """Draws a visual representation of a rubik's cube.
-Currently only the top face is calibrated to make the entire face from variables"""
+        """Draws a visual representation of a rubik's cube. 
+        Currently only the top face is calibrated to make the entire face from variables"""
         # Top Face
         self.draw_top_square(x_origin, y_origin, side_width, 0, 0)
         self.draw_top_square(x_origin, y_origin+space_width+side_width, side_width, 0, 4)
@@ -451,6 +455,8 @@ Currently only the top face is calibrated to make the entire face from variables
                                   [30,31,32,33,34,35,36,37,38],#orange
                                   [40,41,42,43,44,45,46,47,48]]#yellow
             self.my_cube.print_cube()
+
+    
 
 if __name__ == '__main__':
     window = Tk()
